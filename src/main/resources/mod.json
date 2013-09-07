@@ -1,6 +1,6 @@
 {
 
   // Java verticle
-  "main":"com.whiterabbit.bondi.PingVerticle"
+  "main":"com.whiterabbit.bondi.ManagerVerticle"
 
 }
