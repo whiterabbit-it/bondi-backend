@@ -43,6 +43,9 @@ public class DataVerticle extends Verticle {
 						} else {
 							positions.put(clientId, createPosition(body));
 						}
+						
+						body.removeField("clientId"); // Remove the clientId to avoid publishing it.
+						vertx.eventBus().publish("bondis.server.position.update", body);
 					}
 				});
 		
