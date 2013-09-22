@@ -76,15 +76,15 @@ public class DataVerticle extends Verticle {
 
 	protected Position createPosition(JsonObject body) {
 		Position position = new Position();
-		position.setLatitude(body.getLong("latitude"));
-		position.setLongitude(body.getLong("longitude"));
+		position.setLatitude(body.getNumber("latitude").doubleValue());
+		position.setLongitude(body.getNumber("longitude").doubleValue());
 		position.setTimestamp(now());
 		return position;
 	}
 	
 	protected void updatePosition(Position position, JsonObject body) {
-		position.setLatitude(body.getLong("latitude"));
-		position.setLongitude(body.getLong("longitude"));
+		position.setLatitude(body.getNumber("latitude").doubleValue());
+		position.setLongitude(body.getNumber("longitude").doubleValue());
 		position.setTimestamp(now());
 	}
 
