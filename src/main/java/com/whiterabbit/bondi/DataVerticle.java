@@ -16,8 +16,7 @@ import com.whiterabbit.bondi.domain.Position;
 
 public class DataVerticle extends Verticle {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(DataVerticle.class);
+	private static final Logger log = LoggerFactory.getLogger(DataVerticle.class);
 
 	private Map<String, Map<String, Position>> data = new HashMap<>();
 
@@ -46,30 +45,28 @@ public class DataVerticle extends Verticle {
 						}
 					}
 				});
+		
+        vertx.eventBus().registerHandler("bondis.client.list",new Handler<Message<JsonObject>>() {
+            @Override
+            public void handle(Message<JsonObject> message) {
+                final String busLine = message.body().getString("busLine");
 
-		vertx.eventBus().registerHandler(Messages.GET_DATA,
-				new Handler<Message<JsonObject>>() {
-					@Override
-					public void handle(Message<JsonObject> message) {
-						String bus = message.body().getString("bus");
+				JsonArray result = new JsonArray();
 
-						JsonArray result = new JsonArray();
+				if (data.containsKey(busLine)) {
+					Map<String, Position> positions = data.get(busLine);
 
-						if (data.containsKey(bus)) {
-							Map<String, Position> positions = data.get(bus);
+					log.debug(String.format(
+							"Found bus data, collecting %s positions",
+							positions.size()));
 
-							log.debug(String.format(
-									"Found bus data, collecting %s positions",
-									positions.size()));
-
-							for (Position position : positions.values()) {
-								result.addObject(positionToJson(position));
-							}
-						}
-
-						message.reply(result);
+					for (Position position : positions.values()) {
+						result.addObject(positionToJson(position));
 					}
-				});
+				}
+				message.reply(result);
+            }
+        });
 
 		log.debug("DataVerticle started");
 	}

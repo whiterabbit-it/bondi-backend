@@ -19,7 +19,7 @@ public class SockJsBridgeVerticle extends Verticle {
         JsonObject config = new JsonObject().putString("prefix", "/server");
 
         // client send addresses
-        JsonObject requestList = createAddress("bondis\\.client\\.list");
+        JsonObject requestList = createAddress("bondis.client.list");
 
         JsonArray inboundPermitted = new JsonArray();
         inboundPermitted.add(requestList);
@@ -34,7 +34,7 @@ public class SockJsBridgeVerticle extends Verticle {
         sockJSServer.bridge(config, inboundPermitted, outboundPermitted);
 
         httpServer.listen(8181);
-        log.info("SockJsBridgeVerticle Started");
+        log.debug("SockJsBridgeVerticle Started");
     }
     
     private JsonObject createAddress(final String address) {
