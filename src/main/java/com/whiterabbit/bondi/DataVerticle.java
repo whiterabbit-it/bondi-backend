@@ -52,12 +52,12 @@ public class DataVerticle extends Verticle {
         vertx.eventBus().registerHandler("bondis.client.list",new Handler<Message<JsonObject>>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                final String busLine = message.body().getString("busLine");
+                final String bus = message.body().getString("bus");
 
 				JsonArray result = new JsonArray();
 
-				if (data.containsKey(busLine)) {
-					Map<String, Position> positions = data.get(busLine);
+				if (data.containsKey(bus)) {
+					Map<String, Position> positions = data.get(bus);
 
 					log.debug(String.format(
 							"Found bus data, collecting %s positions",
