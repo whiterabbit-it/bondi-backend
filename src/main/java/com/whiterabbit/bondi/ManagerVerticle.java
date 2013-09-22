@@ -6,8 +6,9 @@ import com.whiterabbit.bondi.server.ServicesVerticle;
 
 public class ManagerVerticle extends Verticle {
 	@Override
-	public void start() {
+	public void start() {		
+		container.deployVerticle(SockJsBridgeVerticle.class.getName());
 		container.deployVerticle(ServicesVerticle.class.getName());
 		container.deployVerticle(DataVerticle.class.getName());
 	}
-}
+} 
