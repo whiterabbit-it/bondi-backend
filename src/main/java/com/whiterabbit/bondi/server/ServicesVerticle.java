@@ -21,6 +21,19 @@ public class ServicesVerticle extends Verticle {
 
 	@Override
 	public void start() {
+		
+        vertx.eventBus().registerHandler("bondi.client.list",new Handler<Message<JsonObject>>() {
+            @Override
+            public void handle(Message<JsonObject> event) {
+                final String busLine = event.body().getString("busLine");
+                //TODO Buscar en el hashmap los bondis cercanos para la linea "busLine"
+                
+                event.reply(new JsonObject()
+                    .putString("busList", "1,2,3")
+                );
+            }
+        });
+		
 		log.info("Starting TrackingVerticle");
 
 		server = vertx.createHttpServer();
