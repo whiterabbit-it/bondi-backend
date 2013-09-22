@@ -39,7 +39,7 @@ public class DataVerticle extends Verticle {
 						Map<String, Position> positions = data.get(bus);
 
 						if (positions.containsKey(clientId)) {
-							positions.get(clientId).setTimestamp(now());
+							updatePosition(positions.get(clientId), body);
 						} else {
 							positions.put(clientId, createPosition(body));
 						}
@@ -80,6 +80,12 @@ public class DataVerticle extends Verticle {
 		position.setLongitude(body.getLong("longitude"));
 		position.setTimestamp(now());
 		return position;
+	}
+	
+	protected void updatePosition(Position position, JsonObject body) {
+		position.setLatitude(body.getLong("latitude"));
+		position.setLongitude(body.getLong("longitude"));
+		position.setTimestamp(now());
 	}
 
 	protected JsonObject positionToJson(Position position) {
