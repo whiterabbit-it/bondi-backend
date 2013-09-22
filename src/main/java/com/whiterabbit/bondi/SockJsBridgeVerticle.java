@@ -25,10 +25,10 @@ public class SockJsBridgeVerticle extends Verticle {
         inboundPermitted.add(requestList);
         
         // server publish addresses
-        //JsonObject publishMessage = createAddress("bondis\\.client\\.list");
+        JsonObject positionUpdate = createAddress("bondis.server.position.update");
 
         JsonArray outboundPermitted = new JsonArray();
-        //outboundPermitted.add(publishMessage);
+        outboundPermitted.add(positionUpdate);
         
         SockJSServer sockJSServer = vertx.createSockJSServer(httpServer);
         sockJSServer.bridge(config, inboundPermitted, outboundPermitted);
