@@ -52,7 +52,7 @@ public class DataVerticle extends Verticle {
         vertx.eventBus().registerHandler("bondis.client.list",new Handler<Message<JsonObject>>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                final String bus = message.body().getString("bus");
+                final String bus = message.body().getString("busLine");
 
 				JsonArray result = new JsonArray();
 
